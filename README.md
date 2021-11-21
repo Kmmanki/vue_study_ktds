@@ -245,3 +245,25 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### computed vs methods
 computed: 재연산 시 state가 변하지 않는다면 캐시의 값을 가져와 쓰고, 변하였다면 재연산
 method: 항상 재연산
+
+### express와 CORS
+Express는 node의 경량화 프레임워크로 RestAPI역할을 위해 생성
+CORS:
+- 기본적으로 single origin Policy(동일한 서버, 포트로 주고 받는 정책) 때문에 Vue(prot 8080)가 Expess(prot 4500)로 데이터의 통신이 불가능하다 이를 해결하기위한 라이브러리 Spring Boot의 @crossorigin의 역할을 한다.
+
+### RestAPI
+PACH vs PUT
+PACH : 데이터의 일부 항목만 변경
+PUT: 데이터의 전체 변경
+
+### Promise
+아래의 변수(resolve, reject, finally)를 가지고 있는 객체 
+- 작업이 성공하면 resolve함수를 호출하여 resolve의 인자값을 then으로 받게 되고
+- 작업에 실패하면 reject 함수를 호출하여 reject의 인자값을 catch로 받게 된다.
+- 성공, 실패 여부에 관계없이 항상 처리 되게 하려면 finally로 받아서 처리할 수도 있다
+
+client(vue)가 vue-axios를 통해 axios를 관리하고 axios가 Express의 RestApi호출하는 구조
+
+### dispacher vs commit
+commit : mutation 내부에서 상태 바뀌었을 때 호출
+dispach: action 서버에서 받아온 값을 변경할 때 호출 

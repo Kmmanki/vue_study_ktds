@@ -4,10 +4,13 @@
     <ul>
       <li v-for="(todoItem, index) in getTodoItems" :key="index" class="shadow">
         <!-- :class= 여기 적용 :ture -->
-        <i class="fas fa-check checkBtn"          :class="{ checkBtnCompleted: todoItem.completed }"          @click="toggleComplete({ todoItem, index })"
+        <i
+          class="fas fa-check checkBtn"
+          :class="{ checkBtnCompleted: todoItem.completed }"
+          @click="toggleTodo(todoItem)"
         ></i>
         <span :class="{ textCompleted: todoItem.completed }">{{ todoItem.item }}</span>
-        <span class="removeBtn" @click="removeTodo({ todoItem, index })">
+        <span class="removeBtn" @click="removeTodo(todoItem)">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
@@ -16,20 +19,21 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 export default {
   computed: {
-    ...mapGetters(['getTodoItems' ])
+    ...mapGetters(['getTodoItems'])
   },
   methods: {
-    ...mapMutations(['removeTodo','toggleComplete']),
-    // removeTodo(todoItem, index) {
-    //     this.$store.commit("removeTodo",{todoItem, index})
-    // },
-    // toggleComplete(todoItem,index) {
-    //     this.$store.commit("toggleComplete", {todoItem, index})
-    // }
+    ...mapActions(['removeTodo']),
+    toggleTodo(todoItem) {
+      todoItem.completed = !todoItem.completed
+      this.$store.dispatch('toggleTodo', todoItem)
+    }
+  },
+  created() {
+    this.$store.dispatch('loadTodoItems')
   },
 }
 </script>
