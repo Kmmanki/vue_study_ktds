@@ -1,35 +1,36 @@
 <template>
-    <div>
-        <!--ul>li*3 -->
-        <ul>
-            <li v-for="(todoItem, index) in getTodoItems" :key="index" class="shadow">
-                <!-- :class= 여기 적용 :ture -->
-                <i class="fas fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}" 
-                    v-on:click="toggleComplete(todoItem,index)"></i>
-                <span :class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
-                <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
-                    <i class="fas fa-trash-alt"></i>
-                </span>
-            </li>
-        </ul>
-    </div>
+  <div>
+    <!--ul>li*3 -->
+    <ul>
+      <li v-for="(todoItem, index) in getTodoItems" :key="index" class="shadow">
+        <!-- :class= 여기 적용 :ture -->
+        <i class="fas fa-check checkBtn"          :class="{ checkBtnCompleted: todoItem.completed }"          @click="toggleComplete({ todoItem, index })"
+        ></i>
+        <span :class="{ textCompleted: todoItem.completed }">{{ todoItem.item }}</span>
+        <span class="removeBtn" @click="removeTodo({ todoItem, index })">
+          <i class="fas fa-trash-alt"></i>
+        </span>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
-    computed: {
-        ...mapGetters(['getTodoItems'])
-    },
-    methods: {
-        removeTodo(todoItem, index) {
-            this.$store.commit("removeTodo",{todoItem, index})
-        },
-        toggleComplete(todoItem,index) {
-            this.$store.commit("toggleComplete", {todoItem, index})
-        }
-    },
+  computed: {
+    ...mapGetters(['getTodoItems' ])
+  },
+  methods: {
+    ...mapMutations(['removeTodo','toggleComplete']),
+    // removeTodo(todoItem, index) {
+    //     this.$store.commit("removeTodo",{todoItem, index})
+    // },
+    // toggleComplete(todoItem,index) {
+    //     this.$store.commit("toggleComplete", {todoItem, index})
+    // }
+  },
 }
 </script>
 
